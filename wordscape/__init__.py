@@ -1,3 +1,17 @@
+def name_node(item):
+    tags = item['tag']
+
+    if 'amenity' in tags:
+        if tags['amenity'] == 'waste_basket':
+            return 'a waste basket'
+        elif tags['amenity'] == 'bicycle_parking':
+            return 'bicycle parking'
+        elif tags['amenity'] == 'bench':
+            return 'a bench'
+
+    return 'an unknown node type'
+
+
 class Changeset():
     TEMPLATE = ('# Changeset #{changeset_id}\n{summary}\n\n'
                 '## Detailed Changes\n{detailed_changes}')
@@ -17,7 +31,23 @@ class Changeset():
         )
 
     def describe_changes(self):
-        return 'Not implemented yet.'
+        messages = []
+
+        for change in self.cs_data:
+            if change['type'] == 'node':
+                if change['action'] == 'create':
+                    msg = 'Added {item_name_article} at ({lat}, {lng})'
+                    msg = msg.format(
+                        item_name_article=name_node(change['data']),
+                        lat=change['data']['lat'],
+                        lng=change['data']['lon']
+                    )
+                    messages.append(msg)
+
+        ret = ''
+        for message in messages:
+            ret += '* %s\n' % message
+        return ret
 
     def summarize(self):
         additions, modifications, deletions = 0, 0, 0
