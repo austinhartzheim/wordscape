@@ -1,13 +1,49 @@
 def name_node(item):
     tags = item['tag']
 
+    if not tags:
+        return 'a node with no tags'
+
     if 'amenity' in tags:
-        if tags['amenity'] == 'waste_basket':
+        # https://wiki.openstreetmap.org/wiki/Key:amenity
+        # sustenance
+        if tags['amenity'] == 'bar':
+            return 'a bar'
+        elif tags['amenity'] == 'bbq':
+            return 'a barbecue grill'
+        elif tags['amenity'] == 'biergarten':
+            return 'a beer garden'
+        elif tags['amenity'] == 'cafe':
+            return 'a cafe'
+        elif tags['amenity'] == 'drinking_water':
+            return 'a drinking fountain'
+        elif tags['amenity'] == 'fast_food':
+            return 'a fast food restaurant'
+        elif tags['amenity'] == 'food_court':
+            return 'a food court'
+        elif tags['amenity'] == 'ice_cream':
+            return 'an ice cream shop'
+        elif tags['amenity'] == 'pub':
+            return 'a pub'
+        elif tags['restaurant']:
+            return 'a restaurant'
+
+        # not yet migrated from wiki list
+        elif tags['amenity'] == 'waste_basket':
             return 'a waste basket'
         elif tags['amenity'] == 'bicycle_parking':
             return 'bicycle parking'
         elif tags['amenity'] == 'bench':
             return 'a bench'
+        elif tags['amenity'] == 'bicycle_rental':
+            return 'a bicycle rental location'
+
+    elif 'railway' in tags:
+        if tags['railway'] == 'station':
+            return 'a railway station'
+
+    elif 'name' in tags:
+        return 'a node named "%s"' % tags['name']
 
     return 'an unknown node type'
 
@@ -42,6 +78,18 @@ class Changeset():
                         lat=change['data']['lat'],
                         lng=change['data']['lon']
                     )
+                    messages.append(msg)
+                elif change['action'] == 'modify':
+                    msg = 'Modified {item_name_article} at ({lat}, {lng})'
+                    msg = msg.format(
+                        item_name_article=name_node(change['data']),
+                        lat=change['data']['lat'],
+                        lng=change['data']['lon']
+                    )
+                    messages.append(msg)
+                elif change['action'] == 'delete':
+                    msg = 'Deleted node #{id}'
+                    msg = msg.format(id=change['data']['id'])
                     messages.append(msg)
 
         ret = ''
