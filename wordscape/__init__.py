@@ -1,42 +1,67 @@
+AMENITY_TO_PRONOUN = {
+    # https://wiki.openstreetmap.org/wiki/Key:amenity
+    # sustenance
+    'bar': 'a barar',
+    'bbq': 'a barbecue grill',
+    'biergarten': 'a beer garden',
+    'cafe': 'a cafe',
+    'drinking_water': 'a drinking fountain',
+    'fast_food': 'a fast food restaurant',
+    'food_court': 'a food court',
+    'ice_cream': 'an ice cream shop',
+    'pub': 'a pub',
+    'restaurant': 'a restaurant',
+
+    # education
+    'college': 'a college',
+    'kindergarten': 'a kindergarten',
+    'library': 'a library',
+    'public_bookcase': 'a public bookcase',
+    'school': 'a school',
+    'music_school': 'a music school',
+    'driving_school': 'a driving school',
+    'language_school': 'a language school',
+    'university': 'a university campus',
+
+    # transportation
+    'bicycle_parking': 'bicycle parking',
+    'bicycle_repair_station': 'a bicycle repair station',
+    'bicycle_rental': 'a bicycle rental location',
+    'boat_sharing': 'a boat sharing location',
+    'bus_station': 'a bus station',
+    'car_rental': 'a car rental location',
+    'car_sharing': 'a car sharing location',
+    'car_wash': 'a car wash',
+    'ev_charging': 'an electric vehicle charging station',
+    'charging_station': 'an electric vehicle charging station',
+    'ferry_terminal': 'a ferry terminal',
+    'fuel': 'a gas station',
+    'grit_bin': 'a container holding grit',
+    'motorcycle_parking': 'motorcycle parking',
+    'parking': 'a parking location',
+    'parking_entrance': 'a parking complex entrance',
+    'parking_space': 'a parking space',
+    'taxi': 'a taxi pickup location',
+
+    # financial
+    'atm': 'an ATM',
+    'bank': 'a bank',
+    'bureau_de_change': 'a currency exchange',
+
+    # not yet migrated from wiki list
+    'waste_basket': 'a waste basket',
+    'bench': 'a bench',
+}
+
+
 def name_node(item):
     tags = item['tag']
 
     if not tags:
         return 'a node with no tags'
 
-    if 'amenity' in tags:
-        # https://wiki.openstreetmap.org/wiki/Key:amenity
-        # sustenance
-        if tags['amenity'] == 'bar':
-            return 'a bar'
-        elif tags['amenity'] == 'bbq':
-            return 'a barbecue grill'
-        elif tags['amenity'] == 'biergarten':
-            return 'a beer garden'
-        elif tags['amenity'] == 'cafe':
-            return 'a cafe'
-        elif tags['amenity'] == 'drinking_water':
-            return 'a drinking fountain'
-        elif tags['amenity'] == 'fast_food':
-            return 'a fast food restaurant'
-        elif tags['amenity'] == 'food_court':
-            return 'a food court'
-        elif tags['amenity'] == 'ice_cream':
-            return 'an ice cream shop'
-        elif tags['amenity'] == 'pub':
-            return 'a pub'
-        elif tags['restaurant']:
-            return 'a restaurant'
-
-        # not yet migrated from wiki list
-        elif tags['amenity'] == 'waste_basket':
-            return 'a waste basket'
-        elif tags['amenity'] == 'bicycle_parking':
-            return 'bicycle parking'
-        elif tags['amenity'] == 'bench':
-            return 'a bench'
-        elif tags['amenity'] == 'bicycle_rental':
-            return 'a bicycle rental location'
+    if 'amenity' in tags and tags['amenity'] in AMENITY_TO_PRONOUN:
+        return AMENITY_TO_PRONOUN[tags['amenity']]
 
     elif 'railway' in tags:
         if tags['railway'] == 'station':
