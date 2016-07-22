@@ -48,6 +48,35 @@ AMENITY_TO_PRONOUN = {
     'bank': 'a bank',
     'bureau_de_change': 'a currency exchange',
 
+    # healthcare
+    'baby_hatch': 'a baby hatch',
+    'clinic': 'a medical clinic',
+    'dentist': 'a dentist\'s office',
+    'doctors': 'a doctor\'s office',
+    'hospital': 'a hospital',
+    'nursing_home': 'a nursing home',
+    'pharmacy': 'a pharmacy',
+    'social_facility': 'a social facility',
+    'veterinary': 'a veterinary clinic',
+    'blood_donation': 'a blood donation clinic'
+    
+    # entertainment
+    'arts_centre': 'an arts center',
+    'brothel': 'a brothel',
+    'casino': 'a casino',
+    'cinema': 'a cinema',
+    'community_centre': 'a community center',
+    'fountain': 'a fountain',
+    'gambling': 'a gambling location',
+    'nightclub': 'a nightclub',
+    'planetarium': 'a planetarium',
+    'social_centre': 'a social center',
+    'stripclub': 'a strip club',
+    'studio': 'a recording studio',
+    'swingerclub': 'a swingerclub',
+    'theatre': 'a theater'
+
+
     # not yet migrated from wiki list
     'waste_basket': 'a waste basket',
     'bench': 'a bench',
