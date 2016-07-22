@@ -58,8 +58,8 @@ AMENITY_TO_PRONOUN = {
     'pharmacy': 'a pharmacy',
     'social_facility': 'a social facility',
     'veterinary': 'a veterinary clinic',
-    'blood_donation': 'a blood donation clinic'
-    
+    'blood_donation': 'a blood donation clinic',
+
     # entertainment
     'arts_centre': 'an arts center',
     'brothel': 'a brothel',
@@ -74,12 +74,52 @@ AMENITY_TO_PRONOUN = {
     'stripclub': 'a strip club',
     'studio': 'a recording studio',
     'swingerclub': 'a swingerclub',
-    'theatre': 'a theater'
+    'theatre': 'a theater',
 
-
-    # not yet migrated from wiki list
-    'waste_basket': 'a waste basket',
+    # other
+    'animal_boarding': 'an animal boarding facility',
+    'animal_shelter': 'an animal shelter',
     'bench': 'a bench',
+    'clock': 'a clock',
+    'courthouse': 'a courthouse',
+    'coworking_space': 'a coworking space',
+    'crematorium': 'a crematorium',
+    'crypt': 'a crypt',
+    'dive_centre': 'a diving center',
+    'dojo': 'a dojo',
+    'embassy': 'an embassy',
+    'fire_station': 'a fire station',
+    'firepit': 'a firepit',
+    'game_feeding': 'a game feeding place',
+    'grave_yard': 'a grave yard',
+    'gym': 'a gym',
+    'hunting_stand': 'a hunting stand',
+    'internet_cafe': 'an internet cafe',
+    'kneipp_water_cure': 'a kneipp wature cure',  # TODO: check
+    'marketplace': 'a marketplace',
+    'photo_booth': 'a photo booth',
+    # TODO: attempt to infer a more specific name from religion=*
+    'place_of_worship': 'a place of worship',
+    'police': 'a police station',
+    'post_box': 'a post box',
+    'post_office': 'a post office',
+    'prison': 'a prison',
+    'public_building': 'a public building',
+    'ranger_station': 'a national park visitor headquarters',
+    'recycling': 'a recycling location',
+    'rescue_station': 'a rescue station',
+    'sauna': 'a sauna',
+    'shelter': 'a shelter',
+    'shower': 'a shower',
+    'telephone': 'a public telephone',
+    'toilets': 'public toilets',
+    'townhall': 'a town hall',
+    'vending_machine': 'a vending machine',
+    'waste_basket': 'a waste basket',
+    'waste_disposal': 'a waste disposal location',
+    'waste_transfer_station': 'a waste transfer station',
+    'watering_place': 'a watering place',
+    'water_point': 'a water point',
 }
 
 
