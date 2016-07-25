@@ -331,7 +331,7 @@ class Node():
         if not tags:
             return 'a node with no tags'
 
-        if 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
+        elif 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
             return AMENITY_TO_ARTICLE[tags['amenity']]
 
         elif 'railway' in tags:
@@ -379,6 +379,14 @@ class Way():
     def identify(self):
         tags = self.way_data['tag']
 
-        if 'highway' in tags:
+        if not tags:
+            return 'a way with no tags'
+
+        elif 'highway' in tags:
             if tags['highway'] in HIGHWAY_TO_ARTICLE:
                 return HIGHWAY_TO_ARTICLE[tags['highway']]
+
+        elif 'name' in tags:
+            return 'a way named "%s"' % tags['name']
+
+        return 'an unknown way type'
