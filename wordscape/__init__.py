@@ -1,3 +1,6 @@
+import enum
+
+
 AMENITY_TO_PRONOUN = {
     # https://wiki.openstreetmap.org/wiki/Key:amenity
     # sustenance
@@ -120,6 +123,65 @@ AMENITY_TO_PRONOUN = {
     'waste_transfer_station': 'a waste transfer station',
     'watering_place': 'a watering place',
     'water_point': 'a water point',
+}
+
+HIGHWAY_TO_ARTICLE = {
+    # https://wiki.openstreetmap.org/wiki/Key:highway
+    # roads
+    'motorway': 'a motoray',
+    'trunk': 'a trunk road',
+    'primary': 'a primary road',
+    'secondary': 'a secondary road',
+    'tertiary': 'a tertiary road',
+    'unclassified': 'an unclassified road',
+    'residential': 'a residential road',
+    'service': 'a service road',
+
+    # link roads
+    'motorway_link': 'a link road',
+    'trunk_link': 'a trunk link',
+    'primary_link': 'a primary link',
+    'secondary_link': 'a secondary link',
+    'tertiary_link': 'a tertiary link',
+
+    # special road types
+    'living_street': 'a living street',
+    'pedestrian': 'a pedestrian street',
+    'track': 'a track',
+    'bus_guideway': 'a busway',
+    'raceway': 'a raceway',
+    'road': 'a road',
+
+    # paths
+    'footway': 'a footway',
+    'bridleway': 'a bridleway',
+    'steps': 'steps',
+    'path': 'a path',
+
+    # cycleway
+    'cycleway': 'a cycleway',  # TODO: use logic to fill out extra cases
+
+    # lifecycle
+    'proposed': 'a proposed road',
+    'construction': 'a road under construction',
+
+    # other highway features
+    'bus_stop': 'a bus stop',
+    'crossing': 'a crosswalk',
+    'elevator': 'an elevator',
+    'emergency_access_point': 'an emergency access sign',
+    'escape': 'an emergency stop lane',
+    'give_way': 'a yield sign',
+    'mini_roundabout': 'a mini roundabout',
+    'motorway_junction': 'a motorway junction',
+    'passing_place': 'a passing place',
+    'rest_area': 'a rest area',
+    'speed_camera': 'a speed camera',
+    'street_lamp': 'a street lamp',
+    'services': 'a service station',
+    'stop': 'a stop sign',
+    'traffic_signals': 'traffic signals',
+    'turning_circle': 'a turning circle',
 }
 
 
@@ -274,3 +336,43 @@ class Changeset():
 #                           'the majority of this edit.')
 
         return (' '.join(message)).format(**msg_data)
+
+
+class Way():
+
+    class DataType(enum.Enum):
+        '''
+        Describes the format of the data being passed into the function,
+        '''
+        #: The data is a list of dicts containing the data for all nodes
+        #: in the way in addition to data for the way itself.
+        full = 1
+        #: The data only describes the way as a whole; it does not include
+        #: node-level data.
+        way_only = 2
+
+    def __init__(self, way_id, way_data):
+        self.way_id = way_id
+        self.way_data = None
+        self.node_data = []
+
+        if isinstance(way_data, dict):
+            self.data_type = self.DataType.way_only
+            self.way_data = way_data
+        elif isinstance(way_data, (list, tuple)):
+            self.data_type = self.DataType.full
+            self.node_data = [n for n in way_data if n['type'] == 'node']
+            for data in way_data:
+                if data['type'] == 'way':
+                    self.way_data = data['data']
+                    return
+            raise ValueError('way_data does not include way summary')
+        else:
+            raise TypeError('Data format is unknown')
+
+    def identify(self):
+        tags = self.way_data['tag']
+
+        if 'highway' in tags:
+            if tags['highway'] in HIGHWAY_TO_ARTICLE:
+                return HIGHWAY_TO_ARTICLE[tags['highway']]
