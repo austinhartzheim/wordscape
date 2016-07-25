@@ -1,7 +1,7 @@
 import enum
 
 
-AMENITY_TO_PRONOUN = {
+AMENITY_TO_ARTICLE = {
     # https://wiki.openstreetmap.org/wiki/Key:amenity
     # sustenance
     'bar': 'a barar',
@@ -191,8 +191,8 @@ def name_node(item):
     if not tags:
         return 'a node with no tags'
 
-    if 'amenity' in tags and tags['amenity'] in AMENITY_TO_PRONOUN:
-        return AMENITY_TO_PRONOUN[tags['amenity']]
+    if 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
+        return AMENITY_TO_ARTICLE[tags['amenity']]
 
     elif 'railway' in tags:
         if tags['railway'] == 'station':
