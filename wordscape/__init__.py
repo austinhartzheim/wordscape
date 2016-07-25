@@ -185,25 +185,6 @@ HIGHWAY_TO_ARTICLE = {
 }
 
 
-def name_node(item):
-    tags = item['tag']
-
-    if not tags:
-        return 'a node with no tags'
-
-    if 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
-        return AMENITY_TO_ARTICLE[tags['amenity']]
-
-    elif 'railway' in tags:
-        if tags['railway'] == 'station':
-            return 'a railway station'
-
-    elif 'name' in tags:
-        return 'a node named "%s"' % tags['name']
-
-    return 'an unknown node type'
-
-
 class Changeset():
     TEMPLATE = ('# Changeset #{changeset_id}\n{summary}\n\n'
                 '## Detailed Changes\n{detailed_changes}')
@@ -336,6 +317,31 @@ class Changeset():
 #                           'the majority of this edit.')
 
         return (' '.join(message)).format(**msg_data)
+
+
+class Node():
+
+    def __init__(self, node_id, node_data):
+        self.node_id = node_id
+        self.node_data = node_data
+
+    def identify(self):
+        tags = self.node_data['tag']
+
+        if not tags:
+            return 'a node with no tags'
+
+        if 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
+            return AMENITY_TO_ARTICLE[tags['amenity']]
+
+        elif 'railway' in tags:
+            if tags['railway'] == 'station':
+                return 'a railway station'
+
+        elif 'name' in tags:
+            return 'a node named "%s"' % tags['name']
+
+        return 'an unknown node type'
 
 
 class Way():
