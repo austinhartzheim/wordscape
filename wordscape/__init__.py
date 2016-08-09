@@ -334,6 +334,9 @@ class Node():
         elif 'amenity' in tags and tags['amenity'] in AMENITY_TO_ARTICLE:
             return AMENITY_TO_ARTICLE[tags['amenity']]
 
+        elif 'highway' in tags and tags['highway'] in HIGHWAY_TO_ARTICLE:
+            return HIGHWAY_TO_ARTICLE[tags['highway']]
+
         elif 'railway' in tags:
             if tags['railway'] == 'station':
                 return 'a railway station'
