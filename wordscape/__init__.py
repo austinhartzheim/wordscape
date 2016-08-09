@@ -208,10 +208,11 @@ class Changeset():
 
         for change in self.cs_data:
             if change['type'] == 'node':
+                node = Node(change['data']['id'], change['data'])
                 if change['action'] == 'create':
                     msg = 'Added {item_name_article} at ({lat}, {lng})'
                     msg = msg.format(
-                        item_name_article=name_node(change['data']),
+                        item_name_article=node.identify(),
                         lat=change['data']['lat'],
                         lng=change['data']['lon']
                     )
@@ -219,7 +220,7 @@ class Changeset():
                 elif change['action'] == 'modify':
                     msg = 'Modified {item_name_article} at ({lat}, {lng})'
                     msg = msg.format(
-                        item_name_article=name_node(change['data']),
+                        item_name_article=node.identify(),
                         lat=change['data']['lat'],
                         lng=change['data']['lon']
                     )
