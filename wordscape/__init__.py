@@ -230,6 +230,27 @@ class Changeset():
                     msg = msg.format(id=change['data']['id'])
                     messages.append(msg)
 
+            elif change['type'] == 'way':
+                way = Way(change['data']['id'], change['data'])
+                if change['action'] == 'create':
+                    msg = 'Added {item_name_article}'
+                    msg = msg.format(
+                        item_name_article=way.identify()
+                    )
+                    messages.append(msg)
+                elif change['action'] == 'modify':
+                    msg = 'Modified {item_name_article}'
+                    msg = msg.format(
+                        item_name_article=way.identify()
+                    )
+                    messages.append(msg)
+                elif change['action'] == 'delete':
+                    msg = 'Deleted {item_name_article}'
+                    msg = msg.format(
+                        item_name_article=way.identify()
+                    )
+                    messages.append(msg)
+
         ret = ''
         for message in messages:
             ret += '* %s\n' % message
